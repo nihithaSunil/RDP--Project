@@ -1,3 +1,4 @@
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=18858222&assignment_repo_type=AssignmentRepo)
 # 67-272: RDP Project - Phase 4
 
 We will continue our project to develop a Roi du Pain online bakery ordering system in this phase. We will focus our efforts on building out the controllers and views to make for an effective front end for our new system. This is a lot a test-driven development in this phase -- we give you all the controller tests and some view tests and your job is to pass these tests. In this process, you will see how our testing suite can serve as documentation and help us define system requirements.
