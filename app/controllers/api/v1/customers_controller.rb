@@ -1,13 +1,17 @@
 module Api::V1
   class CustomersController < ApiController
+    include Filterable
+    include Orderable
 
+    BOOLEAN_FILTERING_PARAMS = [[:active, :inactive]]
+    PARAM_FILTERING_PARAMS = []
+    ORDERING_PARAMS = [:alphabetical]
 
     def index
-      customers = Customer.all
-    
-      customers = customers.active if params[:active] == "true"
-      customers = customers.alphabetical if params[:alphabetical] == "true"
-    
+      customers = boolean_filter(Customer.all, BOOLEAN_FILTERING_PARAMS)
+      customers = param_filter(customers, PARAM_FILTERING_PARAMS)
+      customers = order(customers, ORDERING_PARAMS)
+
       result = customers.map do |customer|
         {
           id: customer.id.to_s,
@@ -47,19 +51,14 @@ module Api::V1
           }
         }
       end
-    
+
       render json: { data: result }
-    end    
-
-
-
-
+    end
 
     private
 
     def format_phone(phone)
       phone.gsub(/(\d{3})(\d{3})(\d{4})/, '\1-\2-\3')
     end
-
   end
 end

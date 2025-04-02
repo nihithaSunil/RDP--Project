@@ -15,7 +15,7 @@ class ItemPriceHistorySerializer
       {
         start_date: price.start_date.strftime('%Y-%m-%d'),
         end_date: price.end_date&.strftime('%Y-%m-%d'),
-        price: "$#{'%.2f' % price.price}"
+        price: ActionController::Base.helpers.number_to_currency(price.price)
       }
     end
   end
