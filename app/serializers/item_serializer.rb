@@ -8,8 +8,8 @@ class ItemSerializer
              :weight
 
   attribute :current_price do |item|
-    latest_price = item.item_prices.order(end_date: :desc).first
-    latest_price ? "$#{'%.2f' % latest_price.price}" : "N/A"
+    price = item.current_price
+    price.present? ? ActionController::Base.helpers.number_to_currency(price) : "N/A"
   end
 
   attribute :orders_past_7_days do |item|

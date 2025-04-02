@@ -12,9 +12,9 @@ class Api::V1::OrdersController < ApiController
   
 
   def unshipped
-    unshipped_items = OrderItem
-      .includes(:order, :item)
-      .where(shipped_on: nil)
+    unshipped_items = OrderItem.unshipped.alphabetical
+      # .includes(:order, :item)
+      # .where(shipped_on: nil)
   
     render json: OrderItemUnshippedSerializer.new(unshipped_items).serialized_json
   end
