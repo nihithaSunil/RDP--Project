@@ -3,8 +3,13 @@ Rails.application.routes.draw do
   scope module: 'api', defaults: {format: 'json'} do
     namespace :v1 do
       # Routes for API assigment
-
-
+   
+      get 'orders/baking_list', to: 'orders#baking_list'
+      get 'orders/unshipped', to: 'orders#unshipped'
+      get 'items/:id', to: 'items#show'
+      get 'items/:id/prices', to: 'items#prices'
+      get 'customers', to: 'customers#index'
+     
 
     end
   end
