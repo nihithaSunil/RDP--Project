@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class OrderItemsControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as(:manager)
