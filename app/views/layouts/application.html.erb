@@ -14,7 +14,15 @@
       <!-- Partials for the topbar and navigation -->
       <%# render :partial => "partials/topbar" %>
       <%# render nav partials depending on who is logged in %>
-      
+      <%= render :partial => "partials/topbar" %>
+      <% if logged_in? && ( current_user.customer_role? ) %>
+        <%= render :partial => "partials/customer_nav" %>
+      <% elsif logged_in? && current_user.manager_role? %>
+        <%= render :partial => "partials/nav" %>
+      <% else %>
+        <%= render :partial => "partials/guest_nav" %>
+      <% end %>
+
     </header>
     <main>
     <div class="container">

@@ -15,11 +15,17 @@ Rails.application.routes.draw do
 
   # Routes for regular HTML views go here...
     # Semi-static page routes
-    get 'home',    to: 'home#home',    as: 'home'
+    get '/',    to: 'home#home',    as: 'home'
     get 'about',   to: 'home#about',   as: 'about'
     get 'contact', to: 'home#contact', as: 'contact'
     get 'privacy', to: 'home#privacy', as: 'privacy'
     get 'error_404', to: 'home#error_404', as: :error_404
+
+    get 'cart',            to: 'cart#view',     as: :view_cart
+    get 'cart/add/:id',    to: 'cart#add_item', as: :add_item
+    get 'cart/remove/:id', to: 'cart#remove_item', as: :remove_item
+    get 'cart/empty',      to: 'cart#empty',    as: :empty_cart
+    get 'cart/checkout',   to: 'cart#checkout', as: :checkout
 
 
 

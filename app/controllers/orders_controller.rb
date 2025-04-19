@@ -1,14 +1,15 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  before_action :check_login
+  authorize_resource
 
   def index
-    @all_orders = Order.chronological
+    @all_orders = Order.chronological.all
   end
 
   def show
     @order_items = @order.order_items
-    @other_orders = @order.customer.orders.where.not(id: @order.id).chronological
+    @other_orders = @order.customer.orders.where.not(id: @order.id).chronological.to_a
   end
 
   def new
@@ -16,38 +17,35 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if session[:cart].blank?
-      flash[:error] = "You must add items to your cart before checking out."
-      redirect_to items_path
-      return
-    end
-
+    # if session[:cart].blank?
+    #   flash[:error] = "You must add items to your cart before checking out."
+    #   redirect_to items_path
+    #   return
+    # end
+  
     @order = Order.new(order_params)
-    @order.date = Date.current  # ensure date is always today, ignore params[:date]
-
-    # Use OrderPayment module to set grand_total and payment_receipt
-    @order.build_payment(params[:order][:credit_card_number], params[:order][:expiration_month], params[:order][:expiration_year])
-
+  
+    # Assign virtual payment attributes (they must be assigned before validation)
+  
     if @order.save
-      add_items_from_cart_to_order
-      session[:cart].clear
+      # add_items_from_cart_to_order
+      session[:cart] =[]
       flash[:notice] = "Thank you for ordering from Roi du Pain."
-      redirect_to order_path(@order)
+      redirect_to order_path(Order.last)
     else
-      render :new
+      # This ensures the template renders if validation or payment fails
+      render action: 'new'
     end
   end
-
-  def edit
-  end
+  def edit; end
 
   def update
-    # We ignore updates to :date and set it to current again if needed
-    @order.date = Date.current
+    # Set payment virtual attributes
+    @order.credit_card_number = params[:order][:credit_card_number]
+    @order.expiration_month = params[:order][:expiration_month]
+    @order.expiration_year = params[:order][:expiration_year]
 
-    @order.build_payment(params[:order][:credit_card_number], params[:order][:expiration_month], params[:order][:expiration_year])
-
-    if @order.update(order_params)
+    if @order.update(order_params) && @order.pay
       flash[:notice] = "Order was revised in the system."
       redirect_to order_path(@order)
     else
@@ -72,13 +70,13 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    # `date` intentionally excluded
     params.require(:order).permit(:customer_id, :address_id, :grand_total)
   end
 
   def add_items_from_cart_to_order
     session[:cart].each do |item_id, quantity|
-      OrderItem.create(order: @order, item_id: item_id, quantity: quantity)
+      @order.order_items.build(item_id: item_id.to_i, quantity: quantity)
     end
+    @order.grand_total = @order.order_items.sum { |oi| oi.subtotal || 0 }
   end
 end

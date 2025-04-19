@@ -18,7 +18,7 @@ class OrderItem < ApplicationRecord
   validate -> { is_active_in_system(:item) }
 
   # Other methods
-  def subtotal(date=Date.today)
+  def subtotal(date=Date.current)
     return nil if !date.respond_to?(:future?) || date.future?
     self.item.price_on_date(date) * self.quantity
   end
