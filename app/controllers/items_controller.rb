@@ -1,14 +1,20 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_login, except: [:index, :show]
   authorize_resource
 
-  def index
-    @breads = Item.breads.active.alphabetical
-    @muffins = Item.muffins.active.alphabetical
-    @pastries = Item.pastries.active.alphabetical
-    @inactive_items = current_user&.manager_role? ? Item.inactive.alphabetical : nil
+  # def index
+  #   @breads = Item.breads.active.alphabetical
+  #   @muffins = Item.muffins.active.alphabetical
+  #   @pastries = Item.pastries.active.alphabetical
+  #   @inactive_items = current_user&.manager_role? ? Item.inactive.alphabetical : nil
 
+  # end
+  def index
+    @breads = Item.where(category: 'breads').active
+    @muffins = Item.where(category: 'muffins').active
+    @pastries = Item.where(category: 'pastries').active
+    @popular_items = Item.popular_items_on(Date.current).first(5)
+    @inactive_items = Item.inactive if current_user&.manager_role?
   end
 
   def show
@@ -20,14 +26,24 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
+  # def create
+  #   @item = Item.new(item_params)
+  #   if @item.save
+  #     flash[:notice] = "#{@item.name} was added to the system."
+  #     redirect_to item_path(@item)
+  #     render :new
+  #   end
+  # end
   def create
     @item = Item.new(item_params)
     if @item.save
       flash[:notice] = "#{@item.name} was added to the system."
       redirect_to item_path(@item)
+    else
       render :new
     end
   end
+  
 
   def edit
   end

@@ -1,30 +1,8 @@
-<h4 class="center">Checkout</h4>
-
-<% if flash[:notice].present? %>
-  <!-- Thank You Layout -->
-  <div class="card-panel green lighten-4">
-    <h5><%= flash[:notice] %></h5>
-  </div>
-
-  <h4>Order Details</h4>
-
-  <p><strong>Date:</strong> <%= Date.today.strftime("%B %d, %Y") %></p>
-  <p><strong>Recipient:</strong> <%= @items_in_cart&.first&.first&.customer&.name || "Alex Egan" %></p>
-  <p><strong>Total Weight:</strong> 
-    <%= number_with_precision(@items_in_cart.sum { |item, qty, _| item.weight * qty }, precision: 1) %> lbs
-  </p>
-  <p><strong>Total Cost:</strong> <%= number_to_currency(@total || 0) %></p>
-
-  <h5>Items:</h5>
-  <ul>
-    <% @items_in_cart.each do |item, qty, price| %>
-      <li><%= item.name %> (<%= qty %>) — <%= number_to_currency(qty * price.to_f) %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <!-- Regular Checkout Form -->
-  <%= simple_form_for @order, url: orders_path, method: :post do |f| %>
-    <!-- ... (leave your original full form here exactly as it was) ... -->
-    <!-- You can paste your full form HTML back here -->
-  <% end %>
-<% end %>
+<%= render partial: "partials/nested_form_structure", locals: {
+  object: @customer,
+  fields: "customers/form_fields",
+  section_1_title: "New Customer",
+  nested_object: :user,
+  nested_fields: "customers/user_fields",
+  section_2_title: "User Account"  
+} %>
