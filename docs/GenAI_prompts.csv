@@ -1,2 +1,45 @@
 ﻿File,Tool,Method_Name,Prompt(s)_Used
 ExampleFile,ChatGPT,ExampleMethod,My prompt was… Replace this row with your real first use of Gen AI
+ExampleFile,ChatGPT,ExampleMethod,My prompt was… Replace this row with your real first use of Gen AI
+OrderFeatureFile1,ChatGPT,OrderMethod1,"what if i have it so that when I click on place order, I redirect to another page that gives me my details"
+OrderFeatureFile2,ChatGPT,OrderMethod2,okay now the test I am failing is that of order weight.
+OrderFeatureFile3,ChatGPT,OrderMethod3,why is my weight displaying as 0
+OrderFeatureFile4,ChatGPT,OrderMethod4,it is defined in order_shipping.rb
+OrderFeatureFile5,ChatGPT,OrderMethod5,I cant change that
+OrderFeatureFile6,ChatGPT,OrderMethod6,i am still getting 0
+OrderFeatureFile7,ChatGPT,OrderMethod7,how come total weight is working in orders index.html.erb but not in orders show.html.erb
+OrderFeatureFile8,ChatGPT,OrderMethod8,"instead of printing just the sum, can you print all the individual values and the sum on the screen so i can debug"
+OrderFeatureFile9,ChatGPT,OrderMethod9,have it print out each item_weight and total for each round
+OrderFeatureFile10,ChatGPT,OrderMethod10,what does this tell you
+OrderFeatureFile11,ChatGPT,OrderMethod11,still the same
+OrderFeatureFile12,ChatGPT,OrderMethod12,I am going to give you somebody else's answer and you tell me how they did it
+OrderFeatureFile13,ChatGPT,OrderMethod13,"like order.grand_total, can we also have order.total_weight calculated in the controller?"
+OrderFeatureFile14,ChatGPT,OrderMethod14,no implicit conversion of String into Integer
+Phase4,ChatGPT,1.    “NameError in Orders#new…” — You asked for help fixing a NameError in your orders/new.html.erb view related to an undefined variable f.,
+Phase4,ChatGPT,    2.    “undefined method `map’ for nil:NilClass” — Error when trying to map over a nil collection in the view.,
+Phase4,ChatGPT,    3.    “undefined method `full_address’ for #” — Asked how to avoid modifying models or controllers while resolving this issue.,
+Phase4,ChatGPT,    4.    “rewrite the whole code” — You wanted the full rewrite of your new.html.erb view using only available variables.,
+Phase4,ChatGPT,    5.    “nil can’t be coerced into Integer” — Asked for help fixing a subtotal line in a cart that multiplies quantity and price.,
+Phase4,ChatGPT,    6.    “Then I should see ‘New Address’” — Cucumber test was failing; you were debugging the customer address flow.,
+Phase4,ChatGPT,    7.    “Missing partial addresses/_form_fields” — View failed to render due to missing partial.,
+Phase4,ChatGPT,    8.    “I have address _listing partial…” — You provided code for two partials and wanted help using them without a helper.,
+Phase4,ChatGPT,    9.    “i dont want to create a helper” — Asked whether Cucumber required a dropdown or if an input was acceptable.,
+Phase4,ChatGPT,"    10.    “Missing partial customers/_address_listing” — Another missing partial issue, traced to a render call in customer_address.html.erb.",
+Phase4,ChatGPT,    12.    “And I should not see ‘Melanie Freeman’” — Debugging a test checking that irrelevant names do not show on the page.,
+Phase4,ChatGPT,    13.    “Which file is this?” — Asked which view file was responsible for failing tests.,
+Phase4,ChatGPT,    14.    “This is my show:” — Shared the content of your orders/show.html.erb file to troubleshoot display issues.,
+Phase4,ChatGPT,    15.    “Then I should see ‘Address:’” — Address section wasn’t appearing correctly after clicking on a customer name.,
+Phase4,ChatGPT,    16.    “Feature: Order placement…” — You provided the full text of the final Cucumber feature you’re trying to pass.,
+Phase4,ChatGPT,    17.    “I am failing this: And I should see ‘Unit Price: $9.25’” — Cart view was not displaying correctly.,
+Phase4,ChatGPT,    18.    “This is my cart view.html:” — You shared your full cart/view.html.erb and asked for a rewrite.,
+Phase4,ChatGPT,    19.    “When I click on the link ‘Continue shopping’” — Cucumber couldn’t find the link; you asked for help.,
+Phase4,ChatGPT,    20.    “Add to Cart takes me to cart page” — You wanted to avoid redirecting when clicking ‘Add to Cart’.,
+Phase4,ChatGPT,    21.    “And I should see ‘Order Summary’” — Asked why the order summary section wasn’t appearing in the cart.,
+Phase4,ChatGPT,    22.    “Now clicking on place order is taking me nowhere” — You described an issue with the checkout submission not working.,
+Phase4,ChatGPT,"    23.    “Rewrite my entire view” — You repeatedly requested rewrites of new.html.erb, show.html.erb, and others.",
+Phase4,ChatGPT,    24.    “And I select ‘Alex Egan - 5000 Forbes…’” — Debugged a select dropdown for address that didn’t match the test.,
+Phase4,ChatGPT,    25.    “NoMethodError in Orders#create” — You encountered an error because @addresses or other variables were nil.,
+Phase4,ChatGPT,    26.    “Rather than calling it in the controller…” — You asked to call a partial in the view instead of in the controller.,
+Phase4,ChatGPT,    27.    “I changed new.html to this:” — Updated your customers/new.html.erb and hit a missing partial error.,
+Phase4,ChatGPT,    28.    “Okay let’s refresh…” — You decided to start fresh to resolve order placement test failures.,
+Phase4,ChatGPT,    29.    “Give me a list of all the prompts I gave you…” — You asked for a summary list of all prompts in this thread.,
