@@ -15,6 +15,7 @@ class ItemsController < ApplicationController
     @pastries = Item.where(category: 'pastries').active
     @popular_items = Item.popular_items_on(Date.current).first(5)
     @inactive_items = Item.inactive if current_user&.manager_role?
+    @item = @breads.first
   end
 
   def show
