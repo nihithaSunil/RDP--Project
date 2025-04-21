@@ -1,0 +1,56 @@
+<div class="row">
+  <!-- LEFT COLUMN: Cart Details -->
+  <div class="col s8">
+    <h4>Your Cart</h4>
+
+    <% if @items_in_cart.any? %>
+      <p><strong>Date:</strong> <%= Date.today.strftime("%B %d, %Y") %></p>
+
+      <h6>Items:</h6>
+      <ul>
+        <% @items_in_cart.each do |item, quantity, price| %>
+          <li>
+            <strong><%= item.name %></strong><br>
+            Unit Price: <%= number_to_currency(price) %><br>
+            Quantity: <%= quantity %><br>
+            Subtotal: <%= number_to_currency(price * quantity) %><br><br>
+            <%= link_to "Remove", remove_item_path(item), class: "btn red lighten-2" %>
+          </li>
+        <% end %>
+      </ul>
+
+      <br>
+
+      <p><strong>Total Weight:</strong> 
+        <%= number_with_precision(@items_in_cart.sum { |item, qty, _| item.weight * qty }, precision: 1) %> lbs
+      </p>
+
+      <br><br>
+      <em>Thanks for shopping with Roi du Pain!</em>
+      <br><br>
+
+      <%= link_to "Checkout", new_order_path, class: "btn yellow black-text" %>
+      <%= link_to "Continue shopping", items_path, class: "btn blue" %>
+      <%= link_to "Empty cart", empty_cart_path, class: "btn grey darken-1" %>
+    <% else %>
+      <p>Your cart is currently empty.</p>
+      <%= link_to "Start shopping", items_path, class: "btn blue" %>
+    <% end %>
+  </div>
+
+  <!-- RIGHT COLUMN: Order Summary -->
+  <div class="col s4">
+    <h5>Order Summary</h5>
+
+    <p><strong>Item Subtotal:</strong> 
+      <span style="float: right;"><%= number_to_currency(@subtotal || 0) %></span>
+    </p>
+    <p><strong>Shipping:</strong> 
+      <span style="float: right;"><%= number_to_currency(@shipping_cost || 0) %></span>
+    </p>
+    <hr>
+    <p><strong>Grand Total:</strong> 
+      <span style="float: right;"><%= number_to_currency(@total || 0) %></span>
+    </p>
+  </div>
+</div>

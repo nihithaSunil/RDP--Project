@@ -1,0 +1,14 @@
+<div class="card-panel z-depth-1">
+  <h5>Order summary</h5>
+
+  <p><strong>Subtotal:</strong> <span style="float: right;"><%= number_to_currency(object[:subtotal]) %></span></p>
+  <p><strong>Shipping:</strong> <span style="float: right;"><%= number_to_currency(object[:shipping]) %></span></p>
+  <hr>
+  <p><strong>Grand Total:</strong> 
+    <span style="float: right;"><strong><%= number_to_currency(object[:total]) %></strong></span>
+  </p>
+
+  <div style="margin-top: 1.5rem;">
+    <%= link_to "CHECKOUT", new_order_path, class: "btn yellow black-text", style: "width: 100%;" %>
+  </div>
+</div>

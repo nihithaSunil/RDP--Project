@@ -1,6 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, with: :handle_404
+  before_action :set_cart_count
+
+  def set_cart_count
+    @items_in_cart = load_items_from_cart
+  end
+
+  def load_items_from_cart
+    return [] unless session[:cart]
+    session[:cart].map do |item_id, quantity|
+      item = Item.find_by(id: item_id)
+      [item, quantity]
+    end.compact
+  end
+
 
 
   # just show a flash message instead of full CanCan exception

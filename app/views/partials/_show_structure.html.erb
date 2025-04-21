@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col s7">
     <!-- primary partial gets displayed here in main div -->
-    <%= render partial: "#{primary}" %>
+    <%= render partial: "#{primary}" , locals: { object: object } %>
     <!-- sometimes we want another partial below -->
     <% unless secondary.nil? %>
       <p>&nbsp;</p>
-      <%= render partial: "#{secondary}" %>
+      <%= render partial: "#{secondary}", locals: { object: object } %>
     <% end %>
   </div>
   <div class="col s1">
@@ -14,7 +14,7 @@
   </div>
   <div class="col s4">
     <!-- render the sidebar, if it exists -->
-    <%= render partial: "#{sidebar}" unless sidebar.blank? %>
+    <%= render partial: "#{sidebar}", locals: { object: object } unless sidebar.blank? %>
   </div>
 </div>
 <div class="row">

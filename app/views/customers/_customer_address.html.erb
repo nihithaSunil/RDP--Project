@@ -1,15 +1,12 @@
-<div class="card">
-  <div class="card-content">
-    <h5>Addresses on file</h5>
-
-    <% if @customer.addresses.any? %>
+<% if @customer.addresses.any? %>
+  <div class="card">
+    <div class="card-content">
+      <h5>Addresses on file</h5>
       <ul>
         <% @customer.addresses.each do |address| %>
-          <%= render partial: 'partials/address_listing', locals: { address: address } %>
+          <%= render partial: "partials/address_listing", locals: { address: address } %>
         <% end %>
       </ul>
-    <% else %>
-      <p>This customer has no addresses on file.</p>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

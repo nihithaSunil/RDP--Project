@@ -1,20 +1,21 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_login
+  before_action :check_login, except: [:index, :show]
   authorize_resource
 
   def index
     @breads = Item.breads.active.alphabetical
     @muffins = Item.muffins.active.alphabetical
     @pastries = Item.pastries.active.alphabetical
-    @inactive_items = current_user.manager_role? ? Item.inactive.alphabetical : nil
+    @inactive_items = current_user&.manager_role? ? Item.inactive.alphabetical : nil
+
   end
 
   def show
     @similar_items = Item.where(category: @item.category).where.not(id: @item.id).active.alphabetical
-    @price_history = current_user.manager_role? ? @item.item_prices.chronological : nil
+    @price_history = current_user&.manager_role? ? @item.item_prices.chronological : nil
   end
-
+  
   def new
     @item = Item.new
   end
@@ -24,7 +25,6 @@ class ItemsController < ApplicationController
     if @item.save
       flash[:notice] = "#{@item.name} was added to the system."
       redirect_to item_path(@item)
-    else
       render :new
     end
   end

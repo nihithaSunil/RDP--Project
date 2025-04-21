@@ -1,0 +1,29 @@
+<div class="section-block">
+  <h4>Breads</h4>
+  
+
+  <% if @breads.any? %>
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Weight</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @breads.each do |bread| %>
+          <tr>
+            <td>
+              <%= link_to bread.name, item_path(bread), style: "color: #2196F3; text-decoration: none;" %>
+            </td>
+            <td><%= bread.weight %></td>
+            <td><%= number_to_currency(bread.current_price) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No breads available at the moment.</p>
+  <% end %>
+</div>

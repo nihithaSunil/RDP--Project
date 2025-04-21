@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       
     end
   end
+    root 'home#index'
+
 
   # Routes for regular HTML views go here...
     # Semi-static page routes

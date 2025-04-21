@@ -1,0 +1,8 @@
+<h4>Address:</h4>
+
+<p><strong>Recipient:</strong> <%= @address.recipient %></p>
+<p><%= @address.street_1 %></p>
+<% unless @address.street_2.blank? %>
+  <p><%= @address.street_2 %></p>
+<% end %>
+<p><%= @address.city %>, <%= @address.state %> <%= @address.zip %></p>

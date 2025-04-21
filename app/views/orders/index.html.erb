@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col s12">
+    <h4>All Orders</h4>
+
+    <% if @all_orders.any? %>
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Recipient</th>
+            <th>Item Count</th>
+            <th>Weight</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @all_orders.select { |o| o.customer == current_user.customer }.each do |order| %>
+            <tr>
+              <td>
+                <%= link_to order.date.strftime("%m/%d/%y"), order_path(order), style: "color: #4FC3F7; font-weight: bold;" %>
+              </td>
+              <td><%= order.address&.recipient || "N/A" %></td>
+              <td><%= order.order_items.sum(:quantity) %></td>
+              <td><%= number_with_precision(order.total_weight, precision: 1) %> lbs</td>
+              <td><%= number_to_currency(order.grand_total) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>You have no orders yet.</p>
+      <%= link_to "Start Shopping", items_path, class: "btn blue" %>
+    <% end %>
+  </div>
+</div>

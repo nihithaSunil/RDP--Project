@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col s12">
+    <% if flash[:notice].present? %>
+      <div class="card-panel green lighten-4">
+        <h5><%= flash[:notice] %></h5>
+      </div>
+    <% end %>
+
+    <h4>Order Details</h4>
+
+    <p><strong>Date:</strong> <%= @order.date.strftime("%B %d, %Y") %></p>
+    <p><strong>Customer:</strong> <%= @order.customer.first_name %> <%= @order.customer.last_name %></p>
+
+    <p><strong>Recipient:</strong>
+      <%= link_to @order.address.recipient, address_path(@order.address), style: "color: #2196F3;" %>
+    </p>
+
+    <p><strong>Total Weight:</strong>
+      <%= number_with_precision(@order_items.sum { |oi| oi.item.weight * oi.quantity }, precision: 1) %> lbs
+    </p>
+
+    <p><strong>Total Cost:</strong> <%= number_to_currency(@order.grand_total) %></p>
+
+    <br>
+
+    <h5>Items:</h5>
+    <ul>
+      <% @order_items.each do |oi| %>
+        <li><%= oi.item.name %> (<%= oi.quantity %>)</li>
+      <% end %>
+    </ul>
+
+    <br><br>
+
+    <h5>Other Orders</h5>
+    <% if @other_orders.any? %>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @other_orders.each do |order| %>
+            <tr>
+              <td>
+                <%= link_to order.date.strftime("%m/%d/%y"), order_path(order),
+                      style: "color: #2196F3; text-decoration: none;" %>
+              </td>
+              <td><%= number_to_currency(order.grand_total) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No other orders found.</p>
+    <% end %>
+  </div>
+</div>

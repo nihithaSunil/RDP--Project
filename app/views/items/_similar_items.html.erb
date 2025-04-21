@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-content">
+    <h5>Similar Items</h5>
+
+    <% if @similar_items.present? %>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Weight</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @similar_items.each do |item| %>
+            <tr>
+              <td><%= link_to item.name, item_path(item), style: "color: #2196F3;" %></td>
+              <td><%= item.weight %></td>
+              <td><%= number_to_currency(item.current_price) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No similar items available.</p>
+    <% end %>
+  </div>
+</div>

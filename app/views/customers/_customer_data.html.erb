@@ -1,6 +1,8 @@
 <div class="card">
   <div class="card-content">
-    <h5>Account: <%= @customer.first_name %> <%= @customer.last_name %></h5><br />
+    <h5>Account: <%= @customer.first_name %> <%= @customer.last_name %></h5>
+    <p><em>A Roi du Pain customer since <%= @customer.created_at.year %></em></p>
+    <br />
 
     <b>Phone:</b><br>
     <%= number_to_phone(@customer.phone) %><br /><br />
@@ -11,7 +13,7 @@
     <b>Email:</b><br>
     <%= @customer.email || "n/a" %><br /><br />
 
-    <b>Active Customer?</b><br>
-    <%= @customer.active ? "Yes" : "No" %><br /><br />
+    <b>Active:</b> <%= @customer.active ? "Yes" : "No" %><br /><br />
+
   </div>
 </div>

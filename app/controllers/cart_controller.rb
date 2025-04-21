@@ -4,7 +4,7 @@ class CartController < ApplicationController
   def view
     @items_in_cart = load_items_from_cart
     @subtotal = calculate_subtotal
-    @shipping_cost = 5.00
+    @shipping_cost = 2.00
     @total = @subtotal + @shipping_cost
   end
 
@@ -15,7 +15,9 @@ class CartController < ApplicationController
 
     item = Item.find(item_id)
     flash[:notice] = "#{item.name} was added to cart."
-    redirect_to view_cart_path
+    # redirect_to view_cart_path
+    redirect_back(fallback_location: items_path)
+
   end
 
   def remove_item

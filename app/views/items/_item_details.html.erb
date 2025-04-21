@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-content">
+    <h5><%= @item.name %></h5>
+
+    <p><strong>Category:</strong> <%= @item.category.titleize %></p>
+    <p><strong>Description:</strong> <%= @item.description %></p>
+    <p><strong>Weight:</strong> <%= @item.weight %> lbs</p>
+    <p><strong>Units Per Item:</strong> <%= @item.units_per_item %></p>
+    <p><strong>Current Price:</strong> <%= number_to_currency(@item.current_price) %></p>
+
+    <br>
+
+    <% if logged_in? && current_user.customer_role? %>
+      <%= link_to "Add to Cart", add_item_path(@item), class: "btn yellow black-text" %>
+      <br><br>
+      <%= link_to "Checkout", checkout_path, class: "btn green" %>
+    <% end %>
+
+    <br><br>
+    
+  </div>
+</div>

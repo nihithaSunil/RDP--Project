@@ -3,7 +3,7 @@
     <h5>Order History</h5>
 
     <% if @customer.orders.any? %>
-      <table class="highlight">
+      <table class="striped">
         <thead>
           <tr>
             <th>Date</th>
@@ -14,17 +14,18 @@
           <% @customer.orders.order(date: :desc).each do |order| %>
             <tr>
               <td>
-                <%= link_to order.date.strftime("%m/%d/%y"), order_path(order), style: "color: #2196F3;" %>
+                <%= link_to order.date.strftime("%m/%d/%y"), order_path(order),
+                    style: "color: #2196F3; text-decoration: none;" %>
               </td>
               <td>
-                <strong>$<%= number_with_precision(order.total_cost, precision: 2) %></strong>
+                <%= number_to_currency(order.grand_total) %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
     <% else %>
-      <p>This customer has no order history.</p>
+      <p style="margin-top: 1rem;">You haven’t placed any orders yet.</p>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,29 @@
+<div class="card-panel">
+    <h5>Your Cart</h5>
+  
+    <% if object[:items].any? %>
+      <% object[:items].each do |item, quantity, price| %>
+        <div class="cart-item-row" style="margin-bottom: 1rem;">
+          <p style="margin-bottom: 0;">
+            <%= link_to item.name, item_path(item), style: "color: #2196F3;" %>
+            <%= link_to "Remove", remove_item_path(item), method: :get, style: "float: right; color: #2196F3;" %>
+          </p>
+          <p style="margin: 0;">Unit Price: <%= number_to_currency(price) %></p>
+          <p style="margin: 0;">Quantity: <%= quantity %></p>
+          <p style="margin: 0;">Subtotal: <%= number_to_currency(price * quantity) %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p>Your cart is empty.</p>
+    <% end %>
+  
+    <div class="row" style="margin-top: 2rem;">
+      <div class="col s6">
+        <%= link_to "CONTINUE SHOPPING", items_path, class: "btn yellow black-text" %>
+      </div>
+      <div class="col s6 right-align">
+        <%= link_to "EMPTY CART", empty_cart_path, method: :get, class: "btn yellow black-text" %>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-content">
+    <h5>Popular Today</h5>
+
+    <% popular_items = Item.popular_items_on(Date.current).keys.first(2) %>
+
+    <% popular_items.each_with_index do |item, index| %>
+      <p><%= "#{index + 1}. #{item.name}" %></p>
+    <% end %>
+  </div>
+</div>

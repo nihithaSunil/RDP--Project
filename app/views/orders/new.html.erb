@@ -1,0 +1,90 @@
+<h4 class="center">Checkout</h4>
+
+<%= simple_form_for @order, url: orders_path, method: :post do |f| %>
+  <div class="row">
+    <!-- LEFT COLUMN: Shipping + Payment -->
+    <div class="col s8">
+      
+      <!-- SHIPPING -->
+      <div class="card yellow lighten-5">
+        <div class="card-content">
+          <h5>1. Shipping Address</h5>
+          <%= f.label :address_id, "Address" %><br>
+          <%= f.select :address_id,
+                options_from_collection_for_select(
+                  @addresses || [], 
+                  :id,
+                  ->(a) { "#{a.recipient} - #{a.street_1} #{a.city}, #{a.state} #{a.zip}" }
+                ),
+                prompt: "Select an address" %><br><br>
+          <%= link_to "Add a new address", new_address_path, class: "btn yellow black-text" %>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="card yellow lighten-5">
+        <div class="card-content">
+          <h5>2. Payment</h5>
+          <%= f.label :credit_card_number %><br>
+          <%= f.text_field :credit_card_number %><br><br>
+
+          <%= f.label :expiration_month %><br>
+          <%= f.select :expiration_month, 1..12, prompt: "Select Month" %><br><br>
+
+          <%= f.label :expiration_year %><br>
+          <%= f.select :expiration_year, (Date.today.year..(Date.today.year + 10)), prompt: "Select Year" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Summary -->
+    <div class="col s4">
+      <div class="card white">
+        <div class="card-content">
+          <h5>Order Summary</h5>
+          <p><strong>Item Subtotal:</strong> 
+            <span style="float: right;"><%= number_to_currency(@subtotal || 0) %></span></p>
+          <p><strong>Shipping:</strong> 
+            <span style="float: right;"><%= number_to_currency(@shipping_cost || 0) %></span></p>
+          <hr>
+          <p><strong>Grand Total:</strong> 
+            <span style="float: right;"><%= number_to_currency(@total || 0) %></span></p>
+        </div>
+        <div class="card-action">
+          <%= f.button :submit, "Place order", class: "btn yellow black-text" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEW ITEMS -->
+  <div class="card">
+    <div class="card-content">
+      <h5>3. Review Items</h5>
+      <% if @items_in_cart.present? %>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @items_in_cart.each do |item, qty, price| %>
+              <tr>
+                <td><%= link_to item.name, item_path(item), style: "color: #2196F3;" %></td>
+                <td><%= qty %></td>
+                <td><%= number_to_currency(qty * (price || 0).to_f) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+        <%= link_to "Return to Cart", view_cart_path, class: "btn yellow black-text" %>
+      <% else %>
+        <p>Your cart is empty.</p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

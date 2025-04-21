@@ -1,0 +1,19 @@
+<div class="card-panel green lighten-4">
+  <h5><%= flash[:notice] %></h5>
+</div>
+
+<h4>Order Details</h4>
+<p><strong>Date:</strong> <%= @placed_order.date.strftime("%B %d, %Y") %></p>
+<p><strong>Recipient:</strong> <%= @placed_order.address.recipient %></p>
+
+<h5>Items:</h5>
+<ul>
+  <% @placed_order_items.each do |oi| %>
+    <li><%= oi.item.name %> (<%= oi.quantity %>)</li>
+  <% end %>
+</ul>
+
+<p><strong>Total Weight:</strong>
+  <%= number_with_precision(@placed_order_items.sum { |oi| oi.item.weight * oi.quantity }, precision: 1) %> lbs
+</p>
+<p><strong>Total Cost:</strong> <%= number_to_currency(@placed_order.grand_total) %></p>
