@@ -9,6 +9,7 @@ class CartController < ApplicationController
   end
 
   def add_item
+    session[:cart] ||= {}
     item_id = params[:id].to_s
     session[:cart][item_id] ||= 0
     session[:cart][item_id] += 1
